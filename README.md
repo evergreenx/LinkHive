@@ -1,6 +1,6 @@
-# LinkLeaf
+# LinkHive
 
-LinkLeaf is a platform that allows users to create personalized collections of links and share them via a single, customizable profile link. With LinkLeaf, users can curate their important links, social media profiles, portfolios, and more, making it easy for others to explore and access their content in one place.
+LinkHive is a platform that allows users to create personalized collections of links and share them via a single, customizable profile link. With LinkLeaf, users can curate their important links, social media profiles, portfolios, and more, making it easy for others to explore and access their content in one place.
 
 ## Features
 
