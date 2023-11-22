@@ -1,23 +1,25 @@
-# DevShare
+# LinkLeaf
 
-DevShare is a platform where developers and tech enthusiasts can showcase their development setups, share tips, and explore various configurations used in the industry. This platform allows users to upload images or videos of their setups, tag components, tools, and programming languages, and engage with a vibrant community of like-minded individuals.
+LinkLeaf is a platform that allows users to create personalized collections of links and share them via a single, customizable profile link. With LinkLeaf, users can curate their important links, social media profiles, portfolios, and more, making it easy for others to explore and access their content in one place.
 
 ## Features
 
-- **User Profiles:** Create personalized profiles with bio, profile pictures, and setup details.
-- **Setup Sharing:** Upload images or videos of development setups with detailed descriptions.
-- **Tagging:** Tag components, tools, programming languages, and additional details related to the setup.
-- **Social Interactions:** Like, comment, and share setups, fostering community engagement.
-- **Search and Filters:** Robust search and filtering options for users to discover setups based on categories, tools used, popularity, etc.
-- **Community Engagement:** Forums, discussion boards, or live chat options for community interaction.
-- **Moderation:** Moderation tools to maintain content quality and ensure a positive user experience.
+- **Profile Creation:** Users can register and create personalized profiles with a bio, profile picture, and username.
+- **Link Collection:** Create and manage a collection of links to various websites, portfolios, social media profiles, and more.
+- **Customization:** Customize link appearances with titles, URLs, descriptions, and optional visuals (icons, colors) for each link.
+- **Profile Sharing:** Generate a single profile link to share all curated links with followers or audience.
+- **Link Management:** Easily edit, delete, or rearrange the order of links within the user's dashboard.
+- **Analytics (Optional):** Track link click counts or other engagement metrics for insights.
+- **Settings and Personalization:** Users can adjust profile settings, including profile picture, bio, and username.
 
 ## Technologies Used
 
 - Frontend: HTML5, CSS3, JavaScript, React.js
-- Backend: Supabase
+- Backend: Node.js, Express.js
 - Database: MongoDB
-- Authentication: Oauth
+- Authentication: JSON Web Tokens (JWT)
+- Hosting: AWS (Amazon Web Services)
+- Other: Redux for state management, FontAwesome for icons
 
 ## Getting Started
 
