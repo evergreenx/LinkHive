@@ -15,11 +15,9 @@ LinkHive is a platform that allows users to create personalized collections of l
 ## Technologies Used
 
 - Frontend: HTML5, CSS3, JavaScript, React.js
-- Backend: Node.js, Express.js
-- Database: MongoDB
-- Authentication: JSON Web Tokens (JWT)
-- Hosting: AWS (Amazon Web Services)
-- Other: Redux for state management, FontAwesome for icons
+- Backend: Supabase 
+- Database: Postgres
+- Authentication: Supabase auth
 
 ## Getting Started
 
