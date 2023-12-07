@@ -1,16 +1,14 @@
 "use client";
-import Link from "next/link";
-import Messages from "../login/messages";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import GHLogo from "@/app/assets/gh.svg";
-import GoogleIcon from "@/app/assets/google.svg";
-
-import FigmaIcon from "@/app/assets/figma.svg";
-
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import Messages from "../login/messages";
+
+import GHLogo from "@/app/assets/gh.svg";
+import GoogleIcon from "@/app/assets/google.svg";
 
 const containerVariants = {
   hidden: {
@@ -63,7 +61,7 @@ const inputVariants = {
 export default function Login() {
   const supabase = createClientComponentClient();
 
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const handleFetchUser = async () => {
@@ -89,14 +87,7 @@ export default function Login() {
     });
   };
 
-  const handleFigmaSign = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "figma",
-      options: {
-        redirectTo: window.location.origin + "/auth/callback",
-      },
-    });
-  };
+
 
   if (userData) {
     return router.push("/");
