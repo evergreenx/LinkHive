@@ -25,22 +25,11 @@ const Nav = () => {
     <div className="flex justify-between">
       <NavigationMenu>
         <NavigationMenuList>
-        <NavigationMenuItem>
-Links
+          <NavigationMenuItem>Links</NavigationMenuItem>
 
-</NavigationMenuItem>
+          <NavigationMenuItem>Settings</NavigationMenuItem>
 
-<NavigationMenuItem>
-Settings
-
-</NavigationMenuItem>
-
-          <NavigationMenuItem>
-Analytics
-
-</NavigationMenuItem>
-
-
+          <NavigationMenuItem>Analytics</NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 
