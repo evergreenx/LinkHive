@@ -1,4 +1,5 @@
 'use client';
+import PreviewLinks from '@/components/ui/dashboard/preview-links';
 import { containerVariants } from '@/variant';
 import { motion } from 'framer-motion';
 import React from 'react';
@@ -22,8 +23,8 @@ export default function page() {
         </div>
       </motion.div>
 
-      <motion.div className="lg:absolute p-8  right-0 lg:border-l h-full w-[570px] border-[#e0e2d9]">
-        <div className="p-2 fixed ">phone preview goes here</div>
+      <motion.div className="lg:fixed p-8 right-0 lg:border-l h-full lg:w-[570px] border-[#e0e2d9]">
+        <PreviewLinks />
       </motion.div>
     </motion.div>
   );
