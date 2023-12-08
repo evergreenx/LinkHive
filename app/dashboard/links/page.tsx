@@ -31,7 +31,6 @@ export default function Page() {
   function onSubmit(values: z.infer<typeof LinkValidation>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
   }
 
   return (
