@@ -28,10 +28,8 @@ export default function Page() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof LinkValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-  }
+ const onSubmit = () => {}
+ 
 
   return (
     <motion.div className=" flex flex-col h-screen  px-[18px]">
