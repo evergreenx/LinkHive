@@ -1,6 +1,12 @@
 module.exports = {
-  extends: ['next', 'prettier', 'next/core-web-vitals', 'prettier'],
-  plugins: ['react', 'react-hooks', 'prettier'],
+  extends: [
+    'next',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'next/core-web-vitals',
+    'prettier'
+  ],
+  plugins: ['react', '@typescript-eslint', 'react-hooks', 'prettier'],
   rules: {
     quotes: ['error', 'single'],
     'no-unused-vars': [
@@ -13,6 +19,10 @@ module.exports = {
       }
     ],
     'prefer-const': 'error',
-    'react-hooks/exhaustive-deps': 'error'
+    'react-hooks/exhaustive-deps': 'error',
+    'no-console': 'error',
+    'react/display-name': 'off',
+    'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
+    '@typescript-eslint/no-unused-vars': 'off'
   }
 };

@@ -1,24 +1,17 @@
-import Nav from "@/components/ui/dashboard/nav";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import Nav from '@/components/ui/dashboard/nav';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "dashboard ",
-  description: "",
+  title: 'dashboard ',
+  description: ''
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="">
+    <div className=" h-screen">
       <Nav />
 
-      {children}
+      <div className="my-[8px]">{children}</div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Calensync',
-  description: 'fix unnecessary discusion '
+  title: 'linkhive || login',
+  description: ' '
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

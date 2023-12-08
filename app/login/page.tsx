@@ -1,19 +1,19 @@
-"use client";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+'use client';
+import { Session, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-import Messages from "../login/messages";
+import Messages from '../login/messages';
 
-import GHLogo from "@/app/assets/gh.svg";
-import GoogleIcon from "@/app/assets/google.svg";
+import GHLogo from '@/app/assets/gh.svg';
+import GoogleIcon from '@/app/assets/google.svg';
 
 const containerVariants = {
   hidden: {
     opacity: 0,
-    y: -20,
+    y: -20
   },
   visible: {
     opacity: 1,
@@ -22,76 +22,74 @@ const containerVariants = {
       delayChildren: 0.3, // Delay before starting the animation of children
       staggerChildren: 0.2, // Delay between each child animation
       duration: 0.5,
-      ease: "easeOut",
-    },
+      ease: 'easeOut'
+    }
   },
   exit: {
     opacity: 0,
     y: -20,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
-    },
-  },
+      ease: 'easeOut'
+    }
+  }
 };
 
 const inputVariants = {
   hidden: {
     opacity: 0,
-    y: -10,
+    y: -10
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
-    },
+      ease: 'easeOut'
+    }
   },
   exit: {
     opacity: 0,
     y: -10,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
-    },
-  },
+      ease: 'easeOut'
+    }
+  }
 };
 
 export default function Login() {
   const supabase = createClientComponentClient();
 
-  const [userData, setUserData] = useState(null);
+  const router = useRouter();
+  const [userData, setUserData] = useState<Session | null>(null);
 
   useEffect(() => {
     const handleFetchUser = async () => {
       const {
-        data: { session },
+        data: { session }
       } = await supabase.auth.getSession();
 
       setUserData(session);
     };
 
     handleFetchUser();
-  }, []);
-
-  const router = useRouter();
+  }, [supabase.auth]);
 
   const handleSign = async () => {
     await supabase.auth.signInWithOAuth({
-      provider: "github",
+      provider: 'github',
 
       options: {
-        redirectTo: window.location.origin + "/auth/callback",
-      },
+        redirectTo: window.location.origin + '/auth/callback'
+      }
     });
   };
 
-
-
-  if (userData) {
-    return router.push("/");
+  if (userData?.user) {
+    return router.push('/');
   }
+
   return (
     <div className="flex w-full h-full">
       <motion.div
@@ -128,19 +126,14 @@ export default function Login() {
               handleSign();
             }}
           >
-            <Image
-              src={GoogleIcon}
-              className="mr-2"
-              width={18}
-              alt="googleicon"
-            />
+            <Image src={GoogleIcon} className="mr-2" width={18} alt="googleicon" />
             Continue with Google
           </motion.button>
 
           <Messages />
 
           <p className="  text-sm">
-            Dont have an account ?{" "}
+            Dont have an account ?{' '}
             <a className="text-blue-500" href="/signup">
               Sign up
             </a>
