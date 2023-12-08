@@ -1,24 +1,19 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
+  NavigationMenuList
+} from '@/components/ui/navigation-menu';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const Nav = () => {
   return (
@@ -36,7 +31,7 @@ const Nav = () => {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-            <AvatarImage src={""} />
+            <AvatarImage src={''} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>

@@ -3,7 +3,6 @@ module.exports = {
   plugins: ['react', 'react-hooks', 'prettier'],
   rules: {
     quotes: ['error', 'single'],
-    semi: ['error', 'always'],
     'no-unused-vars': [
       'error',
       {
