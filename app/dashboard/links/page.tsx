@@ -1,9 +1,18 @@
+'use client';
+import { containerVariants } from '@/variant';
+import { motion } from 'framer-motion';
 import React from 'react';
 
 export default function page() {
   return (
-    <section className=" flex flex-col h-screen  p-[18px]">
-      <div className=" w-full lg:w-[841px]">
+    <motion.div className=" flex flex-col h-screen  px-[18px]">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className=" w-full py-[16px] lg:w-[841px]"
+      >
         <h1 className="text-[rgb(33,37,41)] text-sm font-semibold">Links</h1>
 
         <div className="add__links">
@@ -11,11 +20,11 @@ export default function page() {
             Add link
           </button>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="lg:absolute right-0 lg:border-l h-full w-[570px] border-[#e0e2d9]">
+      <motion.div className="lg:absolute p-8  right-0 lg:border-l h-full w-[570px] border-[#e0e2d9]">
         <div className="p-2 fixed ">phone preview goes here</div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.div>
   );
 }

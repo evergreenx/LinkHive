@@ -31,3 +31,51 @@ export const blurInVariant = {
     }
   }
 };
+
+export const containerVariants = {
+  hidden: {
+    opacity: 0,
+    y: -20
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delayChildren: 0.3, // Delay before starting the animation of children
+      staggerChildren: 0.2, // Delay between each child animation
+      duration: 0.5,
+      ease: 'easeOut'
+    }
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut'
+    }
+  }
+};
+
+export const inputVariants = {
+  hidden: {
+    opacity: 0,
+    y: -10
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut'
+    }
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut'
+    }
+  }
+};

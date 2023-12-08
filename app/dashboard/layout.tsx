@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <div className=" h-screen">
       <Nav />
 
-      <div className="my-[8px]">{children}</div>
+      <div className="">{children}</div>
     </div>
   );
 }
