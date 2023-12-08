@@ -1,4 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-exec < /dev/tty && npx git-cz --hook || true
+# Check if the terminal is available
+if [ -t 1 ]; then
+  exec < /dev/tty && npx git-cz --hook || true
+else
+  echo "Terminal not available. Skipping interactive commit."
+fi
