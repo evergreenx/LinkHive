@@ -50,7 +50,7 @@ const Nav = () => {
   }, [supabase.auth]);
 
   return (
-    <motion.div
+    <motion.header
       initial="hidden"
       animate="visible"
       exit="exit"
@@ -89,7 +89,7 @@ const Nav = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-    </motion.div>
+    </motion.header>
   );
 };
 
