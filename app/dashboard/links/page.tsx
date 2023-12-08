@@ -18,7 +18,7 @@ import React from 'react';
 import { LinkValidation } from '@/lib/validation';
 import { z } from 'zod';
 
-export default function page() {
+export default function Page() {
   // 1. Define your form.
   const form = useForm<z.infer<typeof LinkValidation>>({
     resolver: zodResolver(LinkValidation),
