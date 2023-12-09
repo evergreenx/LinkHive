@@ -1,0 +1,113 @@
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useToggle } from '@uidotdev/usehooks';
+
+export default function AddLinks() {
+  const formSchema = z.object({
+    link: z.string().url({
+      message: ''
+    })
+  });
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      link: ''
+    }
+  });
+
+  const [on, toggle] = useToggle(false);
+  // 2. Define a submit handler.
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    alert(values.link);
+  };
+  return (
+    <>
+      {/* show form */}
+
+      {on ? (
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className=" bg-white   lg:w-[640px] w-full rounded-[24px] py-5 px-8 mt-5 "
+          >
+            <FormField
+              control={form.control}
+              name="link"
+              render={({ field }) => (
+                <FormItem className="w-full  ">
+                  <div className="flex justify-between">
+                    <FormLabel className="text-base font-semibold mb-[10px]">Enter URL</FormLabel>
+
+                    <div onClick={() => toggle(false)} className="close relative cursor-pointer">
+                      <svg
+                        width="17"
+                        height="16"
+                        viewBox="0 0 17 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_1_14944)">
+                          <path
+                            d="M14.1283 3.1151L14.5 2.74339L13.7566 2L13.3849 2.3717L14.1283 3.1151ZM2.8717 12.885L2.5 13.2566L3.2434 14L3.61509 13.6284L2.8717 12.885ZM3.61509 2.3717L3.2434 2L2.5 2.74339L2.8717 3.1151L3.61509 2.3717ZM13.3849 13.6284L13.7566 14L14.5 13.2566L14.1283 12.885L13.3849 13.6284ZM13.3849 2.3717L2.8717 12.885L3.61509 13.6284L14.1283 3.1151L13.3849 2.3717ZM2.8717 3.1151L13.3849 13.6284L14.1283 12.885L3.61509 2.3717L2.8717 3.1151Z"
+                            fill="black"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_1_14944">
+                            <rect width="16" height="16" fill="white" transform="translate(0.5)" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div className="flex space-x-5">
+                    <FormControl>
+                      <Input
+                        placeholder="URL"
+                        {...field}
+                        className="w-full rounded-lg  px-3 py-6 border-none outline-none focus:border-none bg-[#ececec] placeholder:text-md"
+                      />
+                    </FormControl>
+
+                    <Button
+                      className="bg-[#000] text-base rounded-[64px] w-[80px]  px-3 py-6 self-end  text-white font-semibold disabled:text-[#A8AAA2]  disabled:bg-[#E0E2D9]"
+                      //   disabled={}
+                      type="submit"
+                    >
+                      Add
+                    </Button>
+                  </div>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      ) : (
+        //  {/* show link */}
+        <Button
+          onClick={() => toggle(true)}
+          className="bg-[#000] w-[640px] p-6   mx-auto  rounded-full text-white font-bold"
+          type="submit"
+        >
+          Add link
+        </Button>
+      )}
+    </>
+  );
+}
