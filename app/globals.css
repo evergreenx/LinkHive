@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.bg-dark {
-    background-color: #fbfbfb; /* Replace with your desired background color */
-  }
 .preview:after {
   content: '';
 

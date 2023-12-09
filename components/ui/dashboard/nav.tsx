@@ -55,7 +55,7 @@ const Nav = () => {
       animate="visible"
       exit="exit"
       variants={dropVariant}
-      className="flex justify-between items-center border border-[#E0E2D9] rounded-full px-4 py-3 "
+      className="flex justify-between items-center bg-white border border-[#E0E2D9] rounded-full px-4 py-3 "
     >
       <ul className="flex space-x-5">
         <li className="text-[#000] cursor-pointer text-sm font-semibold">Links</li>
