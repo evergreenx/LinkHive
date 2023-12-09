@@ -102,7 +102,7 @@ export default function AddLinks() {
         //  {/* show link */}
         <Button
           onClick={() => toggle(true)}
-          className="bg-[#000] w-[640px] p-6   mx-auto  rounded-full text-white font-bold"
+          className="bg-[#000] w-full  lg:w-[640px] p-6   mx-auto  rounded-full text-white font-bold"
           type="submit"
         >
           Add link
