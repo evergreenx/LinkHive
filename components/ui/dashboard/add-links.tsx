@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useToggle } from '@uidotdev/usehooks';
+import LinkContainer from './link-conainer';
 
 export default function AddLinks() {
   const formSchema = z.object({
@@ -108,6 +109,10 @@ export default function AddLinks() {
           Add link
         </Button>
       )}
+
+      {/* links area */}
+
+      <LinkContainer />
     </>
   );
 }

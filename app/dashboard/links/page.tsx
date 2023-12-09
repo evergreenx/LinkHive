@@ -20,6 +20,8 @@ export default function Page() {
         <h1 className="text-[rgb(33,37,41)] text-sm font-semibold my-5">Links</h1>
 
         <AddLinks />
+
+        {/* links */}
       </motion.div>
 
       <motion.div className="lg:fixed p-8 right-0 lg:border-l h-screen lg:w-[570px] lg:block hidden border-[#e0e2d9]">
