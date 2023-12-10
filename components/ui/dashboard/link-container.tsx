@@ -4,47 +4,56 @@ import { useState } from 'react';
 import { Reorder } from 'framer-motion';
 import { Database } from '@/lib/database.types';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
+import EmptyState from './empty-state';
 
 type linksType = Database['public']['Tables']['links']['Row'];
 
-const LinkContainer = ({ links }: { links: linksType[] | null }) => {
-  const [dummyLinks, setDummyLinks] = useState([
-    { title: 'Example Link 1', url: 'https://example.com/link1', show: true },
-    { title: 'Example Link 2', url: 'https://example.com/link2', show: false },
-    { title: 'Example Link 3', url: 'https://example.com/link3', show: true }
-    // Add more dummy links as needed with the 'show' property
-  ]);
+const LinkContainer = ({ links }: { links: linksType[] }) => {
+  const [dummyLinks, setDummyLinks] = useState<linksType[]>(links);
 
-  const handleToggle = (index: number) => {
-    // Create a new array to avoid mutating state directly
-    const updatedLinks = [...dummyLinks];
-    updatedLinks[index].show = !updatedLinks[index].show; // Toggle the 'show' property
-    setDummyLinks(updatedLinks); // Update state with the modified links
+  const handleToggle = async (idx: number, currentIsPublic: boolean | null) => {
+    const newIsPublic = currentIsPublic !== null ? !currentIsPublic : false;
+
+    await supabase.from('links').update({ is_public: newIsPublic }).eq('id', idx).select();
+
+    router.refresh();
   };
 
   const supabase = createClientComponentClient<Database>();
 
-  const handleDeleteLinks = async (id: number) => {
-    await supabase.from('links').delete().eq('id', id);
+  const router = useRouter();
+
+  const handleDeleteLinks = async (idx: number) => {
+    const { error } = await supabase.from('links').delete().eq('id', idx).throwOnError();
+
+    router.refresh();
+
+    if (error) {
+      alert(error);
+    }
   };
   return (
     <div className="my-10">
       <Reorder.Group as="ul" axis="y" values={dummyLinks} onReorder={setDummyLinks}>
-        {links?.map((link, index) => (
+        {links?.map((link) => (
           <Reorder.Item
             className="bg-white py-5 px-5 w-full  lg:w-[640px] rounded-[14px] mt-10"
             key={link.id}
-            value={link.title}
+            value={link}
           >
             <div className="flex justify-between items-center">
-              <p>{link.title} </p>
+              <p className="truncate">{link.title} </p>
 
-              {link.is_public ? (
-                <Switch checked={link?.is_public} onCheckedChange={() => handleToggle(index)} />
+              {link ? (
+                <Switch
+                  checked={link?.is_public}
+                  onCheckedChange={() => handleToggle(link.id, link.is_public)}
+                />
               ) : null}
             </div>
 
-            <p>{link.url}</p>
+            <p className="truncate">{link.url}</p>
 
             <div className="delete mt-5 cursor-pointer" onClick={() => handleDeleteLinks(link.id)}>
               <svg
@@ -65,6 +74,8 @@ const LinkContainer = ({ links }: { links: linksType[] | null }) => {
           </Reorder.Item>
         ))}
       </Reorder.Group>
+
+      {links?.length === 0 && <EmptyState />}
     </div>
   );
 };

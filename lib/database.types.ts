@@ -7,7 +7,7 @@ export interface Database {
         Row: {
           created_at: string;
           id: number;
-          is_public: boolean | null;
+          is_public: boolean;
           title: string | null;
           url: string | null;
           user_id: string;
@@ -15,7 +15,7 @@ export interface Database {
         Insert: {
           created_at?: string;
           id?: number;
-          is_public?: boolean | null;
+          is_public?: boolean;
           title?: string | null;
           url?: string | null;
           user_id: string;
@@ -23,7 +23,7 @@ export interface Database {
         Update: {
           created_at?: string;
           id?: number;
-          is_public?: boolean | null;
+          is_public?: boolean;
           title?: string | null;
           url?: string | null;
           user_id?: string;

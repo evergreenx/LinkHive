@@ -140,7 +140,7 @@ export default function AddLinks({ links }: { links: linksType[] | null }) {
 
       {/* links area */}
 
-      <LinkContainer links={links} />
+      {links && <LinkContainer links={links} />}
     </>
   );
 }
