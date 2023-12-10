@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -18,6 +18,7 @@ import LinkContainer from './link-container';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/lib/database.types';
 import { useRouter } from 'next/navigation';
+import { ColorRing } from 'react-loader-spinner';
 
 type linksType = Database['public']['Tables']['links']['Row'];
 
@@ -38,26 +39,37 @@ export default function AddLinks({ links }: { links: linksType[] | null }) {
 
   const [on, toggle] = useToggle(false);
   // 2. Define a submit handler.
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const {
-      data: { user }
-    } = await supabase.auth.getUser();
+    try {
+      setIsLoading(true);
 
-    if (user) {
-      await supabase.from('links').insert([
-        {
-          url: values.link,
-          title: 'testing',
-          is_public: true,
-          user_id: user?.id
-        }
-      ]);
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
 
-      // refreshing
-      router.refresh();
-      // resetting state to form
-      toggle(false);
-      form.reset();
+      if (user) {
+        await supabase.from('links').insert([
+          {
+            url: values.link,
+            title: 'testing',
+            is_public: true,
+            user_id: user?.id
+          }
+        ]);
+
+        // Refreshing
+        router.refresh();
+        // Resetting state to form
+        toggle(false);
+        form.reset();
+      }
+    } catch (error) {
+      alert(error);
+      // Handle error appropriately, e.g., show an error message
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -67,6 +79,17 @@ export default function AddLinks({ links }: { links: linksType[] | null }) {
     <>
       {/* show form */}
 
+      {isLoading && (
+        <ColorRing
+          visible={true}
+          height="50"
+          width="50"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={['#000', '#000', '#000', '#000', '#000']}
+        />
+      )}
       {on ? (
         <Form {...form}>
           <form

@@ -6,18 +6,32 @@ import { Database } from '@/lib/database.types';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import EmptyState from './empty-state';
+import { ColorRing } from 'react-loader-spinner';
 
 type linksType = Database['public']['Tables']['links']['Row'];
 
 const LinkContainer = ({ links }: { links: linksType[] }) => {
   const [dummyLinks, setDummyLinks] = useState<linksType[]>(links);
 
-  const handleToggle = async (idx: number, currentIsPublic: boolean | null) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [isLoadingToogle, setIsLoadingToggle] = useState<boolean>(false);
+
+  const handleToggle = async (idx: number, currentIsPublic: boolean) => {
+    setIsLoadingToggle(true); // Set loading state to true before the operation
+
     const newIsPublic = currentIsPublic !== null ? !currentIsPublic : false;
 
-    await supabase.from('links').update({ is_public: newIsPublic }).eq('id', idx).select();
+    try {
+      await supabase.from('links').update({ is_public: newIsPublic }).eq('id', idx).select();
 
-    router.refresh();
+      router.refresh();
+    } catch (error) {
+      alert('Error toggling link');
+      // Handle error state or display an error message to the user
+    } finally {
+      setIsLoadingToggle(false); // Set loading state to false after the operation completes
+    }
   };
 
   const supabase = createClientComponentClient<Database>();
@@ -25,16 +39,35 @@ const LinkContainer = ({ links }: { links: linksType[] }) => {
   const router = useRouter();
 
   const handleDeleteLinks = async (idx: number) => {
-    const { error } = await supabase.from('links').delete().eq('id', idx).throwOnError();
+    try {
+      setIsLoading(true);
 
-    router.refresh();
+      const { error } = await supabase.from('links').delete().eq('id', idx);
 
-    if (error) {
-      alert(error);
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      router.refresh();
+    } catch (error) {
+      alert('Error deleting link');
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
     <div className="my-10">
+      {isLoading && (
+        <ColorRing
+          visible={true}
+          height="50"
+          width="50"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={['#000', '#000', '#000', '#000', '#000']}
+        />
+      )}
       <Reorder.Group as="ul" axis="y" values={dummyLinks} onReorder={setDummyLinks}>
         {links?.map((link) => (
           <Reorder.Item
@@ -45,12 +78,24 @@ const LinkContainer = ({ links }: { links: linksType[] }) => {
             <div className="flex justify-between items-center">
               <p className="truncate">{link.title} </p>
 
-              {link ? (
+              <div className=" flex">
+                {isLoadingToogle && (
+                  <ColorRing
+                    visible={true}
+                    height="20"
+                    width="20"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    colors={['#000', '#000', '#000', '#000', '#000']}
+                  />
+                )}
                 <Switch
                   checked={link?.is_public}
+                  disabled={isLoadingToogle}
                   onCheckedChange={() => handleToggle(link.id, link.is_public)}
                 />
-              ) : null}
+              </div>
             </div>
 
             <p className="truncate">{link.url}</p>
