@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,11 +14,17 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useToggle } from '@uidotdev/usehooks';
-import LinkContainer from './link-conainer';
+import LinkContainer from './link-container';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/lib/database.types';
+import { useRouter } from 'next/navigation';
 
-export default function AddLinks() {
+type linksType = Database['public']['Tables']['links']['Row'];
+
+export default function AddLinks({ links }: { links: linksType[] | null }) {
+  const router = useRouter();
   const formSchema = z.object({
-    link: z.string().url({
+    link: z.string().trim().url({
       message: ''
     })
   });
@@ -31,9 +38,31 @@ export default function AddLinks() {
 
   const [on, toggle] = useToggle(false);
   // 2. Define a submit handler.
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    alert(values.link);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      await supabase.from('links').insert([
+        {
+          url: values.link,
+          title: 'testing',
+          is_public: true,
+          user_id: user?.id
+        }
+      ]);
+
+      // refreshing
+      router.refresh();
+      // resetting state to form
+      toggle(false);
+      form.reset();
+    }
   };
+
+  const supabase = createClientComponentClient<Database>();
+
   return (
     <>
       {/* show form */}
@@ -86,7 +115,6 @@ export default function AddLinks() {
 
                     <Button
                       className="bg-[#000] text-base rounded-[64px] w-[80px]  px-3 py-6 self-end  text-white font-semibold disabled:text-[#A8AAA2]  disabled:bg-[#E0E2D9]"
-                      //   disabled={}
                       type="submit"
                     >
                       Add
@@ -112,7 +140,7 @@ export default function AddLinks() {
 
       {/* links area */}
 
-      <LinkContainer />
+      <LinkContainer links={links} />
     </>
   );
 }
